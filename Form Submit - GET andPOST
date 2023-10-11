@@ -70,3 +70,14 @@ def receive_data():
 </html>
 
 ##################### here you cant see the username and password
+
+@app.route("/login", methods=["POST"])
+def receive_data():
+    name = request.form["Username"]
+    password = request.form["Password"]
+    print(f"{name}\n{password}")
+    return "PIKACHU"
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
