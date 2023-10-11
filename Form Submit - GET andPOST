@@ -1,0 +1,72 @@
+############### BASIC
+
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return render_template("contactIndex.html")
+
+
+@app.route("/login", methods=["GET"])
+def receive_data():
+    return "💪 Success! Form submitted"
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+################################ HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login" method="GET">
+    <label>Name</label>
+    <input type="text" placeholder="Name" name="Username">
+    <label>Password</label>
+    <input type="text" placeholder="Password" name="Password">
+    <button type="submit">Ok</button>
+    </form>
+</body>
+</html>
+
+########################################
+
+ENTER NAME AND PASSWORD WITH GET AND IN THE URL YOU CAN SEE http://127.0.0.1:5000/login?Username=dskjdls&Password=sakdjas with the string
+
+
+
+
+
+############################### POST
+main.py
+@app.route("/login", methods=["POST"])
+def receive_data():
+    return "💪 Success! Form submitted"
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/login" method="POST">
+    <label>Name</label>
+    <input type="text" placeholder="Name" name="Username">
+    <label>Password</label>
+    <input type="text" placeholder="Password" name="Password">
+    <button type="submit">Ok</button>
+    </form>
+</body>
+</html>
+
+##################### here you cant see the username and password
