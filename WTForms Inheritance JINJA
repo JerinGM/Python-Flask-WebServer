@@ -1,0 +1,49 @@
+##########################base html the parent
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock%}</title>
+    <style>
+{% block styling %}
+body{
+    background: purple;
+}
+{% endblock %}
+</style>
+</head>
+<body>
+    {% block content %}{% endblock%}
+</body>
+</html>
+
+
+
+###############denied html
+
+{% extends "base.html" %}
+{% block title %}Success{% endblock %}
+{% block styling %}
+   {{ super() }}
+   h1 {
+      color:red;
+   }
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<h1>Access Denied </h1>
+		<iframe src="https://giphy.com/embed/1xeVd1vr43nHO" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+		<p><a href="https://giphy.com/gifs/cheezburger-funny-dog-fails-1xeVd1vr43nHO">via GIPHY</a></p>
+	</div>
+{% endblock %}
+
+###################success html
+{% extends "base.html" %}
+{% block title %}Success{% endblock %}
+{% block content %}
+	<div class="container">
+		<h1>Top Secret </h1>
+		<iframe src="https://giphy.com/embed/Ju7l5y9osyymQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+		<p><a href="https://giphy.com/gifs/rick-astley-Ju7l5y9osyymQ">via GIPHY</a></p>
+	</div>
+{% endblock %}
