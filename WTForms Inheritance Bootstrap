@@ -1,0 +1,113 @@
+####################login.html
+{% extends "base.html" %}
+{% from 'bootstrap4/form.html' import render_form %}
+{% block title %}Title{% endblock %}
+{% block content %}
+
+        <div class="container">
+		<h1>Login</h1>
+		{{ render_form(form) }}
+    	<input type="submit" value="LogIn">
+		</div>
+{% endblock %}
+#########################success.html
+{% extends "base.html" %}
+{% block title %}Success{% endblock %}
+{% block content %}
+	<div class="container">
+		<h1>Top Secret </h1>
+		<iframe src="https://giphy.com/embed/Ju7l5y9osyymQ" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+		<p><a href="https://giphy.com/gifs/rick-astley-Ju7l5y9osyymQ">via GIPHY</a></p>
+	</div>
+{% endblock %}
+#########################denied.html
+{% extends "base.html" %}
+{% block title %}Success{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<h1>Access Denied </h1>
+		<iframe src="https://giphy.com/embed/1xeVd1vr43nHO" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+		<p><a href="https://giphy.com/gifs/cheezburger-funny-dog-fails-1xeVd1vr43nHO">via GIPHY</a></p>
+	</div>
+{% endblock %}
+####################################index.html
+{% extends "base.html" %}
+{% block title %}Secrets{% endblock %}
+{% block content %}
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Welcome</h1>
+        <p>Are you ready to discover my secret?</p>
+        <a class="btn btn-primary btn-lg" href=" {{ url_for('login') }} "
+          >Login</a
+        >
+      </div>
+{% endblock %}
+#############################################base.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block styles %}
+        {{ bootstrap.load_css() }}
+    {% endblock %}
+    <title>{% block title %}{% endblock%}</title>
+
+#################################main.py
+from flask import Flask, render_template
+from flask import Flask, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, validators
+from wtforms.validators import DataRequired, Length, Email
+from flask import current_app, request
+from werkzeug.urls import url_encode
+import flask_bootstrap
+from flask_bootstrap import Bootstrap5
+
+
+class LoginMyForm(FlaskForm):
+    email = StringField(label='Email', validators=[DataRequired(), Email(message=None, granular_message=False, check_deliverability=False, allow_smtputf8=True, allow_empty_local=False)])
+    password = PasswordField(label='Password', validators=[DataRequired(), Length(min=4)])
+    # submit = SubmitField(label='LogIn')
+
+
+
+app = Flask(__name__)
+app.secret_key = "pythondev"
+bootstrap = Bootstrap5(app)
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    login_form = LoginMyForm()
+    login_form.validate_on_submit()
+    # print(login_form.email.data)
+    # print(login_form.password.data)
+    ##########    OR    #################
+    # if login_form.validate_on_submit() == True:
+    #     print(login_form.email.data)
+    #     print(login_form.password.data)
+    ############   OR   #################
+    if login_form.validate_on_submit():
+        if login_form.email.data == "admin@email.com" and login_form.password.data == "12345678":
+            return render_template("success.html")
+        else:
+            return render_template("denied.html")
+
+    return render_template('login.html', form=login_form)
+
+
+@app.route("/")
+def home():
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+</head>
+<body>
+    {% block content %}{% endblock%}
+</body>
+</html>
